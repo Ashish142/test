@@ -1,0 +1,15 @@
+.user_wrapper {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.header_left,
+.header_right {
+    float: left;
+    width: 50%;
+}
+
+.user_header {
+    background-color: blue;
+    padding: 5px;
+}
