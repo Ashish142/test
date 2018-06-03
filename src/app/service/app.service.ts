@@ -54,5 +54,53 @@ export class AppService {
         endIndex: endIndex,
         pages: pages
     };
-}
+  }// method for pagination
+
+  sortResult(prop: string, type: string) {
+    console.log('prop ', prop);
+    return   (a, b) => {
+      const nameA = a[prop];
+      const nameB = b[prop];
+      if (type === 'asc') {
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      } else {
+        if (nameA < nameB) {
+          return 1;
+        }
+        if (nameA > nameB) {
+          return -1;
+        }
+        return 0;
+      }
+    }; // compare function
+  }
+
+  sorting(param1, param2, type ) {
+    if (type === 'asc') {
+      if (param1 < param2) {
+        return -1;
+      }
+      if (param1 > param2) {
+        return 1;
+      }
+      return 0;
+    } else {
+      if (param1 < param2) {
+        return 1;
+      }
+      if (param1 > param2) {
+        return -1;
+      }
+      return 0;
+    }
+  }
+
+
+
 }

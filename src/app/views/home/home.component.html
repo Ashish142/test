@@ -1,7 +1,9 @@
 <div class="user_wrapper">
     <header class="user_header">
         <div class="header_left">
-            header left
+            <select [(ngModel)]="selected" (change)="getSortType()">
+               <option *ngFor ="let sort of sortType" [value]="sort.id"> {{sort.title}}</option>
+           </select>
         </div>
         <div class="header_right">
             <input type="text" [(ngModel)]="searchText" placeholder="search" (keyup)="onKey($event)">
@@ -21,6 +23,7 @@
                             <h3>{{user.login}}</h3>
                             profile url : <span>{{user.url}}</span>
                         </div>
+                        <div>Rank : <span>{{user.score}}</span></div>
                         <button *ngIf="selectedUser !== user.login" (click)="getUserDetails(user.login)">Details</button>
                         <button *ngIf="selectedUser === user.login" (click)="hideUserDetails()">collapse</button>
                     </div>
