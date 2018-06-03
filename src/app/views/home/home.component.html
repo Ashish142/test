@@ -4,14 +4,57 @@
             header left
         </div>
         <div class="header_right">
-            <input type="text" [(ngModel)]="searchText" placeholder="search" (keyup.enter)="onKey($event)">
+            <input type="text" [(ngModel)]="searchText" placeholder="search" (keyup)="onKey($event)">
         </div>
         <div class="clear"></div>
     </header>
     <div class="user_body">
-        body
+        <h4> Total :
+            <span>{{searchResult.total_count}}</span>
+        </h4>
+        <ul>
+            <li *ngFor="let user of pagedItems" class="list">
+                <div class="list_item">
+                    <div class="avatar"><img [src]="user.avatar_url"></div>
+                    <div class="data">
+                        <div>
+                            <h3>{{user.login}}</h3>
+                            profile url : <span>{{user.url}}</span>
+                        </div>
+                        <button *ngIf="selectedUser !== user.login" (click)="getUserDetails(user.login)">Details</button>
+                        <button *ngIf="selectedUser === user.login" (click)="hideUserDetails()">collapse</button>
+                    </div>
+
+                </div>
+                <div class="user_details" *ngIf="selectedUser === user.login ">
+                    <ul>
+                        <li *ngFor="let details of userDetails">
+                            <span class="label">{{details.name}} : </span> <span>{{details.language}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
     </div>
     <footer class="user_footer">
-        footer
+        <!-- pager -->
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(1)">First</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)">Next</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+        </ul>
     </footer>
 </div>
